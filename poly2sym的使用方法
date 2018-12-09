@@ -1,0 +1,17 @@
+%curve fitting.m
+x=[0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85];
+y=[0.650,0.651,0.652,0.668,0.735,0.817,0.881,0.979,1.075,1.151,1.213,1.239,1.262,1.311,1.329,1.338,1.350,1.351];
+figure(1);
+subplot(2,1,1);
+plot(x,y,'r-s');
+aa=polyfit(x,y,5);
+
+f_x=vpa(poly2sym(aa,sym('x')),4);
+%这里需特别注意，必须要使用sym('x')，因为p = poly2sym(c,var)这句是为了uses var as a polynomial variable when creating
+%the symbolic polynomial expression p from the vector of coefficients c。（当创造出符号多项表达式p时使用var作为来自向量系数c的多项式变量）
+%如果不使用sym()会出现Second parameter must be a symbolic variable.(第二个参数必须为逻辑变量)
+
+x=0:5:85;
+subplot(2,1,2);
+plot(x,polyval(aa,x),'m-o');
+axis([0 85 0 1.500]);
